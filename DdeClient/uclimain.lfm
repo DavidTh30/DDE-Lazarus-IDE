@@ -1,0 +1,407 @@
+object MainForm: TMainForm
+  Left = 300
+  Height = 680
+  Top = 120
+  Width = 960
+  Caption = 'DDE Client'
+  ClientHeight = 660
+  ClientWidth = 960
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  Position = poScreenCenter
+  object PanelConn: TPanel
+    Left = 0
+    Height = 96
+    Top = 0
+    Width = 960
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 96
+    ClientWidth = 960
+    TabOrder = 0
+    object LabelService: TLabel
+      Left = 12
+      Height = 15
+      Top = 14
+      Width = 40
+      Caption = 'Service'
+    end
+    object ComboService: TComboBox
+      Left = 60
+      Height = 23
+      Top = 10
+      Width = 120
+      ItemHeight = 15
+      OnChange = ComboServiceChange
+      TabOrder = 0
+      Text = 'NLHV'
+    end
+    object LabelTopic: TLabel
+      Left = 194
+      Height = 15
+      Top = 14
+      Width = 30
+      Caption = 'Topic'
+    end
+    object ComboTopic: TComboBox
+      Left = 232
+      Height = 23
+      Top = 10
+      Width = 130
+      ItemHeight = 15
+      TabOrder = 1
+      Text = 'DB_HMI'
+    end
+    object ButtonConnect: TButton
+      Left = 376
+      Height = 25
+      Top = 9
+      Width = 90
+      Caption = 'Connect'
+      OnClick = ButtonConnectClick
+      TabOrder = 2
+    end
+    object ButtonDisconnect: TButton
+      Left = 472
+      Height = 25
+      Top = 9
+      Width = 90
+      Caption = 'Disconnect'
+      OnClick = ButtonDisconnectClick
+      TabOrder = 3
+    end
+    object ButtonFind: TButton
+      Left = 568
+      Height = 25
+      Top = 9
+      Width = 100
+      Caption = 'Find servers'
+      OnClick = ButtonFindClick
+      TabOrder = 4
+    end
+    object ShapeState: TShape
+      Left = 684
+      Height = 14
+      Top = 15
+      Width = 14
+      Brush.Color = clSilver
+      Shape = stCircle
+    end
+    object LabelState: TLabel
+      Left = 704
+      Height = 15
+      Top = 14
+      Width = 80
+      Caption = 'not connected'
+    end
+    object LabelFormat: TLabel
+      Left = 12
+      Height = 15
+      Top = 46
+      Width = 38
+      Caption = 'Format'
+    end
+    object ComboFormat: TComboBox
+      Left = 60
+      Height = 23
+      Top = 42
+      Width = 120
+      ItemHeight = 15
+      ItemIndex = 0
+      Items.Strings = (
+        'TEXT (ANSI)'
+        'UNICODETEXT'
+      )
+      Style = csDropDownList
+      TabOrder = 5
+      Text = 'TEXT (ANSI)'
+    end
+    object LabelTimeout: TLabel
+      Left = 194
+      Height = 15
+      Top = 46
+      Width = 62
+      Caption = 'Timeout ms'
+    end
+    object EditTimeout: TEdit
+      Left = 262
+      Height = 23
+      Top = 42
+      Width = 60
+      OnChange = EditTimeoutChange
+      TabOrder = 6
+      Text = '3000'
+    end
+    object CheckAutoReconnect: TCheckBox
+      Left = 336
+      Height = 19
+      Top = 44
+      Width = 240
+      Caption = 'Link again when the server comes back'
+      Checked = True
+      OnChange = CheckAutoReconnectChange
+      State = cbChecked
+      TabOrder = 7
+    end
+    object CheckAutoConnect: TCheckBox
+      Left = 600
+      Height = 19
+      Top = 44
+      Width = 120
+      Caption = 'Connect at start'
+      TabOrder = 8
+    end
+    object LabelStatus: TLabel
+      Left = 12
+      Height = 15
+      Top = 74
+      Width = 20
+      Caption = ''
+    end
+  end
+  object GroupTrans: TGroupBox
+    Left = 0
+    Height = 128
+    Top = 96
+    Width = 960
+    Align = alTop
+    Caption = 'Transaction (with the service | topic above)'
+    ClientHeight = 108
+    ClientWidth = 956
+    TabOrder = 1
+    object LabelItem: TLabel
+      Left = 10
+      Height = 15
+      Top = 10
+      Width = 26
+      Caption = 'Item'
+    end
+    object ComboItem: TComboBox
+      Left = 60
+      Height = 23
+      Top = 6
+      Width = 230
+      DropDownCount = 24
+      ItemHeight = 15
+      TabOrder = 0
+      Text = 'VoltAct_kV'
+    end
+    object ButtonRequest: TButton
+      Left = 300
+      Height = 25
+      Top = 5
+      Width = 80
+      Caption = 'Request'
+      OnClick = ButtonRequestClick
+      TabOrder = 1
+    end
+    object ButtonHot: TButton
+      Left = 386
+      Height = 25
+      Top = 5
+      Width = 80
+      Caption = 'Hot link'
+      OnClick = ButtonHotClick
+      TabOrder = 2
+    end
+    object ButtonWarm: TButton
+      Left = 472
+      Height = 25
+      Top = 5
+      Width = 80
+      Caption = 'Warm link'
+      OnClick = ButtonWarmClick
+      TabOrder = 3
+    end
+    object LabelValue: TLabel
+      Left = 10
+      Height = 15
+      Top = 40
+      Width = 28
+      Caption = 'Value'
+    end
+    object EditValue: TEdit
+      Left = 60
+      Height = 23
+      Top = 36
+      Width = 406
+      OnKeyPress = EditValueKeyPress
+      TabOrder = 4
+      TextHint = 'value to poke; \t = tab, \n = new row'
+    end
+    object ButtonPoke: TButton
+      Left = 472
+      Height = 25
+      Top = 35
+      Width = 80
+      Caption = 'Poke'
+      OnClick = ButtonPokeClick
+      TabOrder = 5
+    end
+    object LabelExecute: TLabel
+      Left = 10
+      Height = 15
+      Top = 70
+      Width = 44
+      Caption = 'Execute'
+    end
+    object EditExecute: TEdit
+      Left = 60
+      Height = 23
+      Top = 66
+      Width = 406
+      OnKeyPress = EditExecuteKeyPress
+      TabOrder = 6
+      Text = '[Enable]'
+    end
+    object ButtonExecute: TButton
+      Left = 472
+      Height = 25
+      Top = 65
+      Width = 80
+      Caption = 'Execute'
+      OnClick = ButtonExecuteClick
+      TabOrder = 7
+    end
+    object LabelResult: TLabel
+      Left = 570
+      Height = 15
+      Top = 6
+      Width = 90
+      Caption = 'request result'
+    end
+    object MemoResult: TMemo
+      Left = 570
+      Height = 76
+      Top = 24
+      Width = 376
+      Anchors = [akTop, akLeft, akRight]
+      Font.Name = 'Consolas'
+      ReadOnly = True
+      ScrollBars = ssAutoBoth
+      TabOrder = 8
+      WordWrap = False
+    end
+  end
+  object GridLinks: TStringGrid
+    Left = 0
+    Height = 276
+    Top = 224
+    Width = 960
+    Align = alClient
+    ColCount = 7
+    DefaultRowHeight = 20
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect, goThumbTracking, goSmoothScroll]
+    PopupMenu = PopupLinks
+    RowCount = 1
+    TabOrder = 2
+    OnDblClick = GridLinksDblClick
+    OnResize = GridLinksResize
+    ColWidths = (
+      240
+      50
+      90
+      330
+      60
+      90
+      80
+    )
+  end
+  object SplitterLog: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 500
+    Width = 960
+    Align = alBottom
+    ResizeAnchor = akBottom
+  end
+  object MemoLog: TMemo
+    Left = 0
+    Height = 155
+    Top = 505
+    Width = 960
+    Align = alBottom
+    Font.Name = 'Consolas'
+    ReadOnly = True
+    ScrollBars = ssAutoBoth
+    TabOrder = 3
+    WordWrap = False
+  end
+  object MainMenu1: TMainMenu
+    Left = 820
+    Top = 40
+    object MenuFile: TMenuItem
+      Caption = '&File'
+      object MenuConnect: TMenuItem
+        Caption = '&Connect'
+        ShortCut = 116
+        OnClick = ButtonConnectClick
+      end
+      object MenuDisconnect: TMenuItem
+        Caption = '&Disconnect'
+        ShortCut = 117
+        OnClick = ButtonDisconnectClick
+      end
+      object MenuFind: TMenuItem
+        Caption = '&Find servers'
+        ShortCut = 118
+        OnClick = ButtonFindClick
+      end
+      object MenuClearLog: TMenuItem
+        Caption = 'C&lear log'
+        OnClick = MenuClearLogClick
+      end
+      object MenuSep1: TMenuItem
+        Caption = '-'
+      end
+      object MenuExit: TMenuItem
+        Caption = 'E&xit'
+        OnClick = MenuExitClick
+      end
+    end
+    object MenuHelp: TMenuItem
+      Caption = '&Help'
+      object MenuAbout: TMenuItem
+        Caption = '&About'
+        OnClick = MenuAboutClick
+      end
+    end
+  end
+  object PopupLinks: TPopupMenu
+    Left = 880
+    Top = 40
+    object MenuRequestNow: TMenuItem
+      Caption = '&Request now'
+      OnClick = MenuRequestNowClick
+    end
+    object MenuToPoke: TMenuItem
+      Caption = 'Item and value to &Poke'
+      OnClick = MenuToPokeClick
+    end
+    object MenuCopyValue: TMenuItem
+      Caption = '&Copy value'
+      OnClick = MenuCopyValueClick
+    end
+    object MenuSep2: TMenuItem
+      Caption = '-'
+    end
+    object MenuRemoveLink: TMenuItem
+      Caption = 'Remove &link'
+      ShortCut = 46
+      OnClick = MenuRemoveLinkClick
+    end
+    object MenuRemoveAll: TMenuItem
+      Caption = 'Remove &all links'
+      OnClick = MenuRemoveAllClick
+    end
+  end
+  object Timer1: TTimer
+    Interval = 100
+    OnTimer = Timer1Timer
+    Left = 760
+    Top = 40
+  end
+end
